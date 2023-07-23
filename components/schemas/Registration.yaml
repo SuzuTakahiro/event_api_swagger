@@ -1,0 +1,46 @@
+RegistrationRequest:
+  type: object
+  properties:
+    userId:
+      type: integer
+      description: 参加者のユーザーID
+      example: 1
+  required:
+    - userId
+Registration:
+  type: object
+  properties:
+    registrationId:
+      type: integer
+      description: 参加者を一意に識別するID
+      example: 1
+    userId:
+      type: integer
+      description: 参加者のユーザーID
+      example: 1
+    eventId:
+      type: integer
+      description: イベントを一意に識別するID
+      example: 1
+    registrationDate:
+      type: string
+      format: date-time
+      description: 参加登録日時
+      example: "2021-01-01T00:00:00.000Z"
+    status:
+      type: integer
+      description: 参加登録ステータス
+      example: 1
+UpdateStatusRequest:
+  type: object
+  properties:
+    status:
+      type: integer
+      description: 参加登録ステータス
+      example: 1
+  required:
+    - status
+Registrations:
+  type: array
+  items:
+    $ref: "#/Registration"
