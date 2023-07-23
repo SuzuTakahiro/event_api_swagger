@@ -1,0 +1,176 @@
+openapi: 3.0.3
+info:
+  title: イベントモデル - OpenAPI 3.0
+  version: 1.0.0
+  description: >-
+    - Event モデル
+
+servers:
+  - url: localhost:3000/api/v1.0
+tags:
+  - name: event
+    description: イベント操作
+paths:
+  /events:
+    get:
+      tags:
+        - event
+      summary: イベント一覧取得
+      description: イベント一覧を取得する
+      operationId: retrieveEvents
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/Event.yaml#/Events"
+        "400":
+          description: Invalid status value
+    post:
+      tags:
+        - event
+      summary: イベント登録
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./components/schemas/Event.yaml#/RegistEventRequest"
+      responses:
+        "201":
+          description: 成功。イベントが登録されました。
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/Event.yaml#/Event"
+  /events/{eventId}:
+    parameters:
+      - in: "path"
+        name: "eventId"
+        required: true
+        description: "イベントID"
+        schema:
+          type: "integer"
+          example: 1
+    get:
+      tags:
+        - event
+      summary: イベント詳細取得
+      description: イベント詳細取得する
+      operationId: retrieveEventDetail
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/Event.yaml#/Event"
+        "400":
+          description: Invalid status value
+    patch:
+      tags:
+        - event
+      summary: イベント詳細更新
+      description: イベント詳細更新する
+      operationId: updateEventDetail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./components/schemas/Event.yaml#/RegistEventRequest"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/Event.yaml#/Event"
+        "400":
+          description: Invalid status value
+  /events/{eventId}/registrations:
+    parameters:
+      - in: "path"
+        name: "eventId"
+        required: true
+        description: "イベントID"
+        schema:
+          type: "integer"
+          example: 1
+    post:
+      tags:
+        - event
+      summary: イベント参加申請登録
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./components/schemas/Registration.yaml#/RegistrationRequest"
+      responses:
+        "201":
+          description: 成功。イベント参加申請登録されました。
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/Registration.yaml#/Registration"
+    get:
+      tags:
+        - event
+      summary: イベント参加申請登録一覧取得
+      description: イベント参加申請登録一覧を取得する
+      operationId: retrieveEventRegistrations
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/Registration.yaml#/Registrations"
+  /events/{eventId}/registrations/{registrationId}:
+    parameters:
+      - in: "path"
+        name: "eventId"
+        required: true
+        description: "イベントID"
+        schema:
+          type: "integer"
+          example: 1
+      - in: "path"
+        name: "registrationId"
+        required: true
+        description: "参加登録ID"
+        schema:
+          type: "integer"
+          example: 1
+    get:
+      tags:
+        - event
+      summary: イベント参加申請情報取得
+      description: イベント参加申請情報を取得する
+      operationId: retrieveEventRegistrations
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/Registration.yaml#/Registration"
+    patch:
+      tags:
+        - event
+      summary: イベント参加申請ステータス更新
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./components/schemas/Registration.yaml#/UpdateStatusRequest"
+      responses:
+        "201":
+          description: 成功。イベント参加申請ステータスが更新されました。
+          content:
+            application/json:
+              schema:
+                $ref: "./components/schemas/Registration.yaml#/Registration"

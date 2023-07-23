@@ -1,0 +1,86 @@
+Event:
+  type: object
+  properties:
+    eventId:
+      type: integer
+      description: イベントを一意に識別するID
+      example: 1
+    eventName:
+      type: string
+      description: イベントの名称
+      example: "イベント名"
+    eventDescription:
+      type: string
+      description: イベントの詳細な説明
+      example: "イベントの詳細な説明"
+    eventDate:
+      type: string
+      format: date-time
+      description: イベントの開催日時
+      example: "2021-01-01T00:00:00.000Z"
+    eventLocation:
+      type: string
+      description: イベントの開催場所
+      example: "東京都渋谷区"
+    organizer:
+      type: string
+      description: イベントの主催者または団体名
+      example: "主催者名"
+    category:
+      type: string
+      description: イベントのカテゴリー（音楽、スポーツ、交流会など）
+      example: "音楽"
+    attendanceLimit:
+      type: integer
+      description: イベントの参加人数制限（任意項目）
+      example: 100
+  required:
+    - eventId
+    - eventName
+    - eventDate
+    - eventLocation
+    - organizer
+    - category
+RegistEventRequest:
+  type: object
+  properties:
+    eventName:
+      type: string
+      description: イベントの名称
+      example: "イベント名"
+    eventDescription:
+      type: string
+      description: イベントの詳細な説明
+      example: "イベントの詳細な説明"
+    eventDate:
+      type: string
+      format: date-time
+      description: イベントの開催日時
+      example: "2021-01-01T00:00:00.000Z"
+    eventLocation:
+      type: string
+      description: イベントの開催場所
+      example: "東京都渋谷区"
+    organizer:
+      type: string
+      description: イベントの主催者または団体名
+      example: "主催者名"
+    category:
+      type: string
+      description: イベントのカテゴリー（音楽、スポーツ、交流会など）
+      example: "音楽"
+    attendanceLimit:
+      type: integer
+      description: イベントの参加人数制限（任意項目）
+      example: 100
+  required:
+    - eventName
+    - eventDate
+    - eventLocation
+    - organizer
+    - category
+Events:
+  type: array
+  maxItems: 100
+  items:
+    $ref: "#/Event"
